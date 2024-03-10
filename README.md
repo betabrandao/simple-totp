@@ -1,9 +1,7 @@
 # simple-totp
 Simple TOTP Extenstion to [Pass Project](https://www.passwordstore.org/). 
 
-TODO: Add port to MacOs pbcopy.
-
-This plugin use openssl to decode the base32 TOTP secret, based in timestamp. Is **super important** your system datetime is syncked to NTP servers.
+This plugin use openssl to decode the sha1 TOTP secret key, based in local timestamp. NOTE: Is **super important** your system datetime is syncked to NTP servers.
 
 ## Requirements:
 - pass

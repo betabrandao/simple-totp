@@ -29,9 +29,12 @@ local offset="$((16#${hash:39}))"
 local extracted="${hash:$((offset * 2)):8}"
 local token="$(((16#$extracted & 16#7fffffff) % 1000000))"
 
-#print otp
+# 
+# Print TOTP
+#
+
 case "${2%/}" in
-  -c|--clip) echo $token | xclip -selection c; echo 'Copied to clipboard.' ;;
+  -c|--clip) clip $token ;;
   *) echo $token ;;
 esac
   

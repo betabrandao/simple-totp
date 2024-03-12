@@ -20,7 +20,7 @@ local passfile="$PREFIX/$path.gpg"
 local count="$(printf '%.16x' $(($(date +%s)/30)))"
 check_sneaky_paths "$path"
 
-local hexkey=$(gpg -d "${GPG_OPTS[@]}" "$passfile" | grep totp_secret | tr -d ' ' | cut -d':' -f2 | base32 -d | xxd -p)
+local hexkey=$(gpg -d "${GPG_OPTS[@]}" "$passfile" | grep totp_secret | tr -d ' ' | cut -d':' -f2 | base32 -d | xxd -ps -c 128)
 
 [[ -z "$hexkey" ]] && die "Failed to generate TOTP code: totp_secret not found. Example. totp_secret: YOURTOTPBASE32SECRET"
 

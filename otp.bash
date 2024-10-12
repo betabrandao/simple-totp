@@ -32,14 +32,16 @@ local print="$(printf '%06d' ${token})"
 
 qrcode ()
 {
-local secret=$(gpg -d "${GPG_OPTS[@]}" "$passfile" | grep -E 'otp|secret' | tr -d ' ' | cut -d':' -f2)
+  local issuer=$(basename $(dirname ${path}))
+  local name=$(basename ${path})
+  local secret=$(gpg -d "${GPG_OPTS[@]}" "$passfile" | grep -E 'otp|secret' | tr -d ' ' | cut -d':' -f2)
   qrencode -o - \
     -t UTF8 \
     -s 10 \
     -v 1 \
     -m 2 \
     -l m \
-    "otpauth://totp/${path##*/}?secret=${secret}&issuer=${path##*/}"
+    "otpauth://totp/${name}?secret=${secret}&issuer=${issuer^}"
 }
 
 

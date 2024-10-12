@@ -14,8 +14,11 @@ This plugin use openssl to decode the sha1 TOTP secret key, based in local times
 $ wget -qO ./otp.bash https://github.com/betabrandao/simple-totp/raw/refs/heads/main/otp.bash | sudo install ./otp.bash /usr/lib/password-store/extensions/otp.bash
 ```
 
-## Usage:
-Step 1: Add to your secret a `totp_secret:` key. 
+# Usage:
+
+## Step 1: 
+
+- Add to your secret a `secret:` key. 
 
 Example:
 
@@ -31,7 +34,10 @@ secret: YOURTOTPBASE32SECRET
 ```
 Save this.
 
-Step 2: Get opt code. To copy to clipboard, use -c option:
+## Step 2: Get opt code.
+
+- To copy token to clipboard , use `-c` option. example: `pass otp path/of/password -c` ;
+- To generate qrcode to OTP Applications, use `-qr` option;
 
 ```bash
 $ pass otp mypass/example

@@ -11,7 +11,7 @@ This plugin use openssl to decode the sha1 TOTP secret key, based in local times
 ## Instalation
 
 ```bash
-$ sudo install totp.bash /usr/lib/password-store/extensions/
+$ wget -qO ./otp.bash https://github.com/betabrandao/simple-totp/raw/refs/heads/main/otp.bash | sudo install ./otp.bash /usr/lib/password-store/extensions/otp.bash
 ```
 
 ## Usage:
@@ -27,14 +27,14 @@ anpasswordexempleusingpass
 user: aUserExample
 pass: anpasswordexempleusingpass
 url: https://anpasswordexempleusingpass.example.com
-totp_secret: YOURTOTPBASE32SECRET
+secret: YOURTOTPBASE32SECRET
 ```
 Save this.
 
-Step 2: Get topt code. To copy to clipboard, use -c option:
+Step 2: Get opt code. To copy to clipboard, use -c option:
 
 ```bash
-$ pass totp mypass/example
+$ pass otp mypass/example
 ```
 
 Done! Simple TOTP!

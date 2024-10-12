@@ -20,9 +20,9 @@ local passfile="$PREFIX/$path.gpg"
 local count="$(printf '%.16x' $(($(date +%s)/30)))"
 check_sneaky_paths "$path"
 
-local hexkey=$(gpg -d "${GPG_OPTS[@]}" "$passfile" | grep totp_secret | tr -d ' ' | cut -d':' -f2 | base32 -d | xxd -ps -c 128)
+local hexkey=$(gpg -d "${GPG_OPTS[@]}" "$passfile" | grep -E 'otp|secret' | tr -d ' ' | cut -d':' -f2 | base32 -d | xxd -ps -c 128)
 
-[[ -z "$hexkey" ]] && die "Failed to generate TOTP code: totp_secret not found. Example. totp_secret: YOURTOTPBASE32SECRET"
+[[ -z "$hexkey" ]] && die "Failed to generate TOTP code: otp or secret not found. Example in pass file secret: YourTotpBase32SecretNoSpacesBetweenChars"
 
 local hash="$(echo -n "$count" | xxd -r -p | openssl mac -digest sha1 -macopt hexkey:"$hexkey" HMAC)"
 local offset="$((16#${hash:39}))"

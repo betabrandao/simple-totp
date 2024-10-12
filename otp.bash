@@ -27,14 +27,14 @@ local hexkey=$(gpg -d "${GPG_OPTS[@]}" "$passfile" | grep -E 'otp|secret' | tr -
 local hash="$(echo -n "$count" | xxd -r -p | openssl mac -digest sha1 -macopt hexkey:"$hexkey" HMAC)"
 local offset="$((16#${hash:39}))"
 local extracted="${hash:$((offset * 2)):8}"
-local token="$(printf '%06d' $(((16#$extracted & 16#7fffffff) % 1000000)))"
-
+local token="$(((16#$extracted & 16#7fffffff) % 1000000))"
+local print="$(printf '%06d' ${token})"
 # 
 # Print TOTP
 #
 
 case "${2%/}" in
-  -c|--clip) clip $token ;;
-  *) echo $token ;;
+  -c|--clip) clip $print ;;
+  *) echo $print ;;
 esac
   
